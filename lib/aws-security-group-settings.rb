@@ -1,0 +1,12 @@
+path = File.expand_path("..", __FILE__)
+require "#{path}/aws/operational"
+require "#{path}/aws/configurable"
+require "#{path}/aws/security_groups"
+require "#{path}/aws/security_group"
+#require "#{path}/aws/instances"
+#require "#{path}/aws/instance"
+require "#{path}/parser/security_groups"
+#require "#{path}/parser/instances"
+require "#{path}/loader/security_groups"
+#require "#{path}/loader/instances"
+require "#{path}/options"

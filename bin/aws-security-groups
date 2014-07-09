@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + "/../lib")
+
+require 'aws-security-group-settings'
+require 'rubygems'
+require 'yaml'
+
+opts = Options.new
+parser = Parser::SecurityGroups.new
+
+regions = YAML.load_file('config/regions.yml')
+regions.each do |region|
+  json = `aws ec2 describe-security-groups --region=#{region}`
+  parser.parse(json)
+end
+current_settings = parser.security_groups
+
+if opts.dump
+  current_settings.export_yaml("config/security_groups.yml")
+  exit
+end
+
+yaml = File.read("config/security_groups.yml")
+loader = Loader::SecurityGroups.new(yaml)
+
+current_settings.converge(loader.security_groups, opts.dry_run)
