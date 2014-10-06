@@ -1,0 +1,69 @@
+{
+    "SecurityGroups": [
+        {
+            "IpPermissionsEgress": [],
+            "Description": "sg 1",
+            "IpPermissions": [
+                {
+                    "ToPort": 22,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "1.1.1.1/32"
+                        },
+                        {
+                            "CidrIp": "2.2.2.2/32"
+                        }
+                    ],
+                    "UserIdGroupPairs": [],
+                    "FromPort": 22
+                }
+            ],
+            "GroupName": "sg 1",
+            "OwnerId": "111111111111",
+            "GroupId": "sg-11111111"
+        },
+        {
+            "IpPermissionsEgress": [],
+            "Description": "sg 2",
+            "IpPermissions": [
+                {
+                    "ToPort": 22,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "UserIdGroupPairs": [],
+                    "FromPort": 22
+                },
+                {
+                    "ToPort": 80,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "UserIdGroupPairs": [],
+                    "FromPort": 80
+                },
+                {
+                    "ToPort": 443,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "UserIdGroupPairs": [],
+                    "FromPort": 443
+                }
+            ],
+            "GroupName": "sg 2",
+            "OwnerId": "222222222222",
+            "GroupId": "sg-22222222"
+        }
+    ]
+}

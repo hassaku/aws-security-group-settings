@@ -1,0 +1,25 @@
+---
+sg-1:
+  group_name: sg-1
+  description: sg 1
+  protocol:
+    tcp:
+      80:
+        CidrIp:
+        - 0.0.0.0/0
+      443:
+        CidrIp:
+        - 0.0.0.0/0
+        GroupId:
+        - sg-2
+sg-2:
+  group_name: sg-2
+  description: sg 2
+  protocol:
+    tcp:
+      80:
+        CidrIp:
+        - 0.0.0.0/0
+      443:
+        CidrIp:
+        - 0.0.0.0/0
