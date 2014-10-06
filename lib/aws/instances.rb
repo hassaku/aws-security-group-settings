@@ -5,9 +5,10 @@ module Aws
     include Configurable
 
     def <<(instance)
-      initialize_hash(@hash, instance.name)
-      initialize_hash(@hash[instance.name], instance.sg_id)
-      @hash[instance.name][instance.sg_id] = instance.sg_name
+      initialize_hash(@hash, instance.primary_id)
+      @hash[instance.primary_id]["name"] = instance.name
+      initialize_hash(@hash[instance.primary_id], "security_groups")
+      @hash[instance.primary_id]["security_groups"][instance.sg_id] = instance.sg_name
       super instance
     end
   end

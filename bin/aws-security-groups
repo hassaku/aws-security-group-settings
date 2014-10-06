@@ -6,21 +6,35 @@ require 'rubygems'
 require 'yaml'
 
 opts = Options.new
-parser = Parser::SecurityGroups.new
+regions = YAML.load_file('config/regions.yml') # TODO: Enable to set with option
 
-regions = YAML.load_file('config/regions.yml')
+parser_security_groups = Parser::SecurityGroups.new
 regions.each do |region|
   json = `aws ec2 describe-security-groups --region=#{region}`
-  parser.parse(json)
+  parser_security_groups.parse(json)
 end
-current_settings = parser.security_groups
+current_security_groups = parser_security_groups.security_groups
+
+parser_instances = Parser::Instances.new
+regions.each do |region|
+  json = `aws ec2 describe-instances --region=#{region}`
+  parser_instances.parse(json)
+end
+current_instances = parser_instances.instances
 
 if opts.dump
-  current_settings.export_yaml("config/security_groups.yml")
+  current_security_groups.export_yaml("config/security_groups.yml")
+  current_instances.export_yaml("config/instances.yml")
+  puts "Create current settings files in config direcotry."
   exit
 end
 
-yaml = File.read("config/security_groups.yml")
-loader = Loader::SecurityGroups.new(yaml)
+puts "[security groups]"
+loader_security_groups = Loader::SecurityGroups.new(File.read("config/security_groups.yml"))
+current_security_groups.converge(loader_security_groups.security_groups, opts.dry_run)
 
-current_settings.converge(loader.security_groups, opts.dry_run)
+puts "\n[instances]"
+loader_instances = Loader::Instances.new(File.read("config/instances.yml"))
+current_instances.converge(loader_instances.instances, opts.dry_run)
+
+puts "\nRun '#{$0} --apply' to apply above differences." if opts.dry_run
