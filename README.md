@@ -1,4 +1,4 @@
-# Aws::Security::Group::Settings
+# Aws::Security::Group::Settings [![Build Status](https://travis-ci.org/hassaku/aws-security-group-settings.svg?branch=master)](https://travis-ci.org/hassaku/aws-security-group-settings)
 
 Configuration tool for AWS Security Groups with YAML.
 
