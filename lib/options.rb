@@ -8,11 +8,11 @@ class Options
     @dry_run = true
     @dump = false
 
-    opt.on('-a', '--apply') do |v|
+    opt.on('-a', '--apply', 'Apply changes') do |v|
       @dry_run = false
     end
 
-    opt.on('-d', '--dump') do |v|
+    opt.on('-d', '--dump', 'Dump current settings to config/security_groups.yml') do |v|
       @dump = true
     end
     opt.parse!(ARGV)
