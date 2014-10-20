@@ -8,7 +8,7 @@ describe Parser::SecurityGroups do
 
   context "when json includes five configurations of security groups" do
     let(:json_file) { "five_configs_in_two_security_groups.json" }
-    before { parser.parse(json) }
+    before { parser.parse(json, "region") }
 
     it "converts json to Aws::SecurityGroup object" do
       expect(subject.first.class).to eq Aws::SecurityGroup

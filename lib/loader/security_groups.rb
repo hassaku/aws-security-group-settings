@@ -11,6 +11,7 @@ module Loader
             types.each do |type, values|
               values.each do |value|
                 @security_groups << Aws::SecurityGroup.new(
+                  region: attributes["region"],
                   group_id: group_id,
                   group_name: attributes["group_name"],
                   description: attributes["description"],

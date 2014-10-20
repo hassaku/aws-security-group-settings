@@ -8,6 +8,7 @@ module Loader
       YAML.load(yaml).each do |instance_id, attributes|
         attributes["security_groups"].each do |sg_id, sg_name|
           @instances << Aws::Instance.new(
+            region: attributes["region"],
             name: attributes["name"],
             instance_id: instance_id,
             sg_name: sg_name,

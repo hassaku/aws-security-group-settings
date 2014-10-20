@@ -1,9 +1,10 @@
 module Aws
   class SecurityGroup
     include Operational
-    attr_reader :group_id, :group_name, :description, :protocol, :port, :type, :value, :primary_id
+    attr_reader :region, :group_id, :group_name, :description, :protocol, :port, :type, :value, :primary_id
 
-    def initialize(group_id: nil, group_name: nil, description: nil, protocol: nil, port: nil, type: nil, value: nil)
+    def initialize(region: nil, group_id: nil, group_name: nil, description: nil, protocol: nil, port: nil, type: nil, value: nil)
+      @region = region
       @group_id = group_id
       @group_name = group_name
       @description = description
@@ -17,7 +18,7 @@ module Aws
     private
 
     def command(type)
-      command = "aws ec2 #{type} --group-id #{@group_id} --protocol #{@protocol} --port #{@port}"
+      command = "aws ec2 #{type} --group-id #{@group_id} --protocol #{@protocol} --port #{@port} --region #{@region}"
       command << case @type
       when "CidrIp" then
         " --cidr #{@value}"
@@ -41,7 +42,7 @@ module Aws
     end
 
     def to_s
-      "group_id: #{@group_id}, group_name: #{@group_name}, description: #{@description}, protocol: #{@protocol}, port: #{@port}, type: #{@type}, value: #{@value}"
+      "region: #{@region}, group_id: #{@group_id}, group_name: #{@group_name}, description: #{@description}, protocol: #{@protocol}, port: #{@port}, type: #{@type}, value: #{@value}"
     end
   end
 end

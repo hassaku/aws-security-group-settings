@@ -1,9 +1,10 @@
 module Aws
   class Instance
     include Operational
-    attr_reader :name, :sg_name, :sg_id, :primary_id
+    attr_reader :region, :name, :sg_name, :sg_id, :primary_id
 
-    def initialize(name: nil, instance_id: nil, sg_name: nil, sg_id: nil)
+    def initialize(region: nil, name: nil, instance_id: nil, sg_name: nil, sg_id: nil)
+      @region = region
       @name = name
       @primary_id = instance_id
       @sg_name = sg_name
@@ -19,16 +20,16 @@ module Aws
 
     def create_command
       message = "AWS::Instance#create_command(not impremented): "
-      message << "Add #{@sg_id}(#{@sg_name}) in the security groups of #{@primary_id}(#{@name}) manually."
+      message << "Add #{@sg_id}(#{@sg_name}) in the security groups of #{@primary_id}(#{@name}) on #{@region} manually."
     end
 
     def remove_command
       message = "AWS::Instance#remove_command(not impremented): "
-      message << "Remove #{@sg_id}(#{@sg_name}) in the security groups of #{@primary_id}(#{@name}) manually."
+      message << "Remove #{@sg_id}(#{@sg_name}) in the security groups of #{@primary_id}(#{@name}) on #{@region} manually."
     end
 
     def to_s
-      "name: #{@name}, instance_id: #{@primary_id}, security group name: #{@sg_name}, sg_id: #{@sg_id}"
+      "region: #{@region}, name: #{@name}, instance_id: #{@primary_id}, security group name: #{@sg_name}, sg_id: #{@sg_id}"
     end
   end
 end
