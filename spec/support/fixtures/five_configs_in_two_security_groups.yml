@@ -1,6 +1,7 @@
 ---
 sg-1:
   group_name: sg-1
+  region: aaa
   description: sg 1
   protocol:
     tcp:
@@ -14,6 +15,7 @@ sg-1:
         - sg-2
 sg-2:
   group_name: sg-2
+  region: bbb
   description: sg 2
   protocol:
     tcp:

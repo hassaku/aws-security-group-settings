@@ -11,14 +11,14 @@ regions = YAML.load_file('config/regions.yml') # TODO: Enable to set with option
 parser_security_groups = Parser::SecurityGroups.new
 regions.each do |region|
   json = `aws ec2 describe-security-groups --region=#{region}`
-  parser_security_groups.parse(json)
+  parser_security_groups.parse(json, region)
 end
 current_security_groups = parser_security_groups.security_groups
 
 parser_instances = Parser::Instances.new
 regions.each do |region|
   json = `aws ec2 describe-instances --region=#{region}`
-  parser_instances.parse(json)
+  parser_instances.parse(json, region)
 end
 current_instances = parser_instances.instances
 

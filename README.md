@@ -18,8 +18,17 @@ Or install it yourself as:
 
 ## Preparation
 
+### Install awscli
+
 ```
 $ pip install awscli
+$ aws configure
+(Set IAM key and secret allowed "ec2:AuthorizeSecurityGroupIngress" and "ec2:RevokeSecurityGroupIngress".)
+```
+
+### Create region.yml
+
+```
 $ mkdir config
 $ vi config/regions.yml
 - "us-east-1"
@@ -44,7 +53,7 @@ $ vi config/security_groups.yml
 
 $ aws-security-groups
 [security groups]
-- group_id: sg-xxxxx, group_name: yyyyy, description: ..., protocol: tcp, port: 443, type: CidrIp, value: xx.xx.xx.xx/32
+- region: us-east-1, group_id: sg-xxxxx, group_name: yyyyy, description: ..., protocol: tcp, port: 443, type: CidrIp, value: xx.xx.xx.xx/32
 [instances]
 
 Run 'aws-security-groups --apply' to apply above differences.
